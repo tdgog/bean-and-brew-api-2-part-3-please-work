@@ -21,7 +21,10 @@ public class API {
         get("/hello", (req, res) -> "Hello World");
         get("/hellojson", "application/json", TestRoutes.helloJSON, new JsonTransformer());
 
-        post("/addAccount", "application/json", AuthController.addAccount, new JsonTransformer());
+        path("/users", () -> {
+            post("/create", "application/json", AuthController.addAccount, new JsonTransformer());
+            post("/login", "application/json", AuthController.logIn, new JsonTransformer());
+        });
     }
 
     public static Gson getGson() {
